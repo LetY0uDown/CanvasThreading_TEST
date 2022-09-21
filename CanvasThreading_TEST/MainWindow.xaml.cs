@@ -91,7 +91,7 @@ public partial class MainWindow : Window
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     DrawRectangle(x * CELL_SIZE, y * CELL_SIZE,
-                                  ColorTool.GetMultipliedColor(x + y, 0, 1, 1));
+                                  ColorTool.GetMultipliedColor(x + y, 0.5, 0.5, 1));
                 });
 
                 Thread.Sleep(DELAY);

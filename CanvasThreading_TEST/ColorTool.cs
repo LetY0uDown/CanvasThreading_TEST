@@ -12,7 +12,7 @@ internal static class ColorTool
                           (byte)random.Value.Next(0, 256),
                           (byte)random.Value.Next(0, 256)));
 
-    internal static SolidColorBrush GetMultipliedColor(int shadeIndex, int redMultiplier, int greenMultiplier, int blueMultiplier)
+    internal static SolidColorBrush GetMultipliedColor(int shadeIndex, double redMultiplier, double greenMultiplier, double blueMultiplier)
     {
         shadeIndex *= 8;
 
