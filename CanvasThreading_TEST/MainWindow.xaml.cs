@@ -15,7 +15,7 @@ public partial class MainWindow : Window
 
         Width = Height = CELL_SIZE * GRID_SIZE;
 
-        Thread thread = new(() => DrawGreyGradientFromTwoCorners());
+        Thread thread = new(() => DrawGreyGradientFromLeftCorner(ColorShadeType.Green));
         thread.SetApartmentState(ApartmentState.STA);
 
         thread.Start();
@@ -24,18 +24,7 @@ public partial class MainWindow : Window
     const int CELL_SIZE = 50;
     const int GRID_SIZE = 16;
 
-    static readonly Random random = new();
-
-    static Color RandomColor => Color.FromRgb((byte)random.Next(0, 256), (byte)random.Next(0, 256), (byte)random.Next(0, 256));
-
-    static SolidColorBrush GetGreyShadeColor(int shadeIndex)
-    {
-        shadeIndex *= 8;
-
-        byte shade = (byte)shadeIndex;
-
-        return new(Color.FromRgb(shade, shade, shade));
-    }
+    const int DELAY = 10;
 
     private void DrawRectangle(int posX, int posY, SolidColorBrush color)
     {
@@ -52,7 +41,7 @@ public partial class MainWindow : Window
         Canvas.SetTop(rectangle, posY);
     }
 
-    public void DrawGreyGradientFromTwoCorners()
+    public void DrawGreyGradientFromTwoCorners(ColorShadeType colorShade)
     {
         for (int x = 0; x < GRID_SIZE; x++)
         {
@@ -65,15 +54,15 @@ public partial class MainWindow : Window
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     DrawRectangle(x * CELL_SIZE, y * CELL_SIZE,
-                                  GetGreyShadeColor(shadeIndex));
+                                  ColorTool.GetShadedColor(colorShade, shadeIndex));
                 });
 
-                Thread.Sleep(10);
+                Thread.Sleep(DELAY);
             }
         }
     }
 
-    public void DrawCornerShapedGreyGradient()
+    public void DrawCornerShapedGreyGradient(ColorShadeType colorShade)
     {
         for (int x = 0; x < GRID_SIZE; x++)
         {
@@ -85,15 +74,15 @@ public partial class MainWindow : Window
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     DrawRectangle(x * CELL_SIZE, y * CELL_SIZE,
-                                  GetGreyShadeColor(shadeIndex));
+                                  ColorTool.GetShadedColor(colorShade, shadeIndex));
                 });
 
-                Thread.Sleep(10);
+                Thread.Sleep(DELAY);
             }
         }
     }
 
-    public void DrawGreyGradientFromLeftCorner()
+    public void DrawGreyGradientFromLeftCorner(ColorShadeType colorShade)
     {
         for (int x = 0; x < GRID_SIZE; x++)
         {
@@ -102,10 +91,10 @@ public partial class MainWindow : Window
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     DrawRectangle(x * CELL_SIZE, y * CELL_SIZE,
-                                  GetGreyShadeColor(x + y));
+                                  ColorTool.GetMultipliedColor(x + y, 0, 1, 1));
                 });
 
-                Thread.Sleep(10);
+                Thread.Sleep(DELAY);
             }
         }        
     }

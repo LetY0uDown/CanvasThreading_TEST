@@ -6,7 +6,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="450"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="None" ResizeMode="NoResize">
+        WindowStyle="None" ResizeMode="NoResize"
+        Background="Transparent" AllowsTransparency="True">
 
     <Canvas Name="Field"/>
 
